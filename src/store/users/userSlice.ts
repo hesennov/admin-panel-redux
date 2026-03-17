@@ -77,6 +77,7 @@ const usersSlice = createSlice({
       state.loading = true;
       state.error = null;
     }).addCase(fetchUser.fulfilled,(state,action)=>{
+      // console.log("api response : ", action.payload) //consol
         state.loading = false
         state.users = action.payload.data
         state.totalPages = action.payload.totalPages
