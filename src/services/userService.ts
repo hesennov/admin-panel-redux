@@ -18,9 +18,9 @@ export const userService = {
         return apiClient.delete(`/users/${id}`)
     },
     update :(id:number, data:UpdateUserData ):Promise<User>=>{
-        return apiClient.put(`/users/${id} ${data}`)
+        return apiClient.put(`/users/${id}`,data)
     },
     create:(data:CreateUserData):Promise<User>=>{
-        return apiClient.post(`/users, ${data}`)
+        return apiClient.post(`/users`,data)
     }
 }
