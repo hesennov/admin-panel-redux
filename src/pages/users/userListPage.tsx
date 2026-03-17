@@ -1,4 +1,5 @@
 // import { useEffect } from "react";
+import ReusableTable from "../../components/ReusableTable/ReusableTable";
 import { useUsers } from "../../hooks/useUsers";
 import type { User } from "../../types/user";
 interface Column {
@@ -59,7 +60,7 @@ const UserListPage = () => {
   return (
     <div>
       <h1>UserListPage</h1>
-      <div className="table">
+      {/* <div className="table">
         <table className="table-auto w-full border">
           <thead>
             <tr className="px-4 py-2 border">
@@ -88,7 +89,9 @@ const UserListPage = () => {
             ))}
           </tbody>
         </table>
-      </div>
+      </div> */}
+
+      <ReusableTable columns={UsersColumn} data={users}/>
       <div className="buttons flex gap-3">
         <button
           onClick={() => setPage(page - 1)}
@@ -102,6 +105,7 @@ const UserListPage = () => {
             const pageNumber = i + 1;
             return (
               <button
+              key={pageNumber}
               onClick={()=>setPage(pageNumber)}
                 className={`px-2 py-1  rounded border ${page === pageNumber ? "bg-blue-600 text-white" : "bg-white"}`}
               >
