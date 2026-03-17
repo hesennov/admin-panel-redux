@@ -1,59 +1,26 @@
 // import { useEffect } from "react";
+import ReusablePagination from "../../components/ReusablePagination/ReusablePagination";
 import ReusableTable from "../../components/ReusableTable/ReusableTable";
 import { useUsers } from "../../hooks/useUsers";
 import type { User } from "../../types/user";
-interface Column {
-  label: string;
-  key: keyof User;
-  render?: (value: User[keyof User], row: User) => React.ReactNode;
-}
+import { UsersColumn } from "./UsersColumn";
 
 const UserListPage = () => {
   const {
     error,
     loading,
-    deleteUser,
+    // deleteUser,
     // editUser,
-    fetchUser,
+    // fetchUser,
     page,
     search,
     setPage,
-    setSearch,
+    // setSearch,
     totalPages,
     users,
   } = useUsers();
 
-  const UsersColumn: Column[] = [
-    { label: "Name", key: "name" },
-    { label: "Surname", key: "surname" },
-    { label: "Email", key: "email" },
-    {
-      label: "Status",
-      key: "active",
-      render: (value) => {
-        return (
-          <span className={value ? "text-green-500" : "text-red-500"}>
-            {value ? "Active" : "Deactive"}
-          </span>
-        );
-      },
-    },
-    {
-      label: "Actions",
-      key: "id",
-      render: (_, row) => {
-        return (
-          <button
-            className="px-2 py-1 bg-red-500 text-white border rounded"
-            onClick={() => deleteUser(row.id)}
-          >
-            Delete
-          </button>
-        );
-      },
-    },
-  ];
-
+ 
   // useEffect(()=>{console.log(users)},[users])
   if (loading) return <h1>loading...</h1>;
   if (error) return <h1> Error</h1>;
@@ -92,7 +59,7 @@ const UserListPage = () => {
       </div> */}
 
       <ReusableTable columns={UsersColumn} data={users}/>
-      <div className="buttons flex gap-3">
+      {/* <div className="buttons flex gap-1">
         <button
           onClick={() => setPage(page - 1)}
           disabled={page === 1}
@@ -121,7 +88,8 @@ const UserListPage = () => {
         >
           next
         </button>
-      </div>
+      </div> */}
+      <ReusablePagination page={page} setPage={setPage}totalPage={totalPages}/>
     </div>
   );
 };
