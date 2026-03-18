@@ -9,6 +9,8 @@ interface UsersState {
   page: number;
   totalPages: number;
   search: string;
+  selectedId : number |null;
+  editingUser: User | null
 }
 
 export const fetchUser = createAsyncThunk(
@@ -56,6 +58,8 @@ const initialState: UsersState = {
   page: 1,
   totalPages: 10,
   search: "",
+  selectedId:null,
+  editingUser:null
 };
 
 const usersSlice = createSlice({
@@ -69,6 +73,13 @@ const usersSlice = createSlice({
     setSearch: (state, action) => {
       ((state.search = action.payload), (state.page = 1));
     },
+    handleCloseModal :(state)=>{
+       state.selectedId = null
+      
+    },handleOpenModalDeleteModal : (state,action)=>{
+      state.selectedId = action.payload
+
+    }
   },
 
   extraReducers: (builder) => {
@@ -94,5 +105,5 @@ const usersSlice = createSlice({
   },
 });
 
-export const {setPage,setSearch} = usersSlice.actions
+export const {setPage,setSearch,handleCloseModal,handleOpenModalDeleteModal} = usersSlice.actions
 export default usersSlice.reducer;

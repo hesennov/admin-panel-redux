@@ -1,5 +1,6 @@
 // import { useEffect } from "react";
 import StatusView from "../../common/StatusView";
+import ReusableModal from "../../components/ReusableModal/ReusableModal";
 import ReusablePagination from "../../components/ReusablePagination/ReusablePagination";
 import ReusableTable from "../../components/ReusableTable/ReusableTable";
 import { useUsers } from "../../hooks/useUsers";
@@ -19,6 +20,11 @@ const UserListPage = () => {
     // setSearch,
     totalPages,
     users,
+    selectedId,
+    editingUser,
+    handleCloseModal,
+    handleOpenModalDeleteModal,
+    
   } = useUsers();
 
   // useEffect(()=>{console.log(users)},[users])
@@ -28,6 +34,10 @@ const UserListPage = () => {
   //       <div className="animate-spin h-12 w-12 rounded-full border-b-2 border-indigo-600 "></div>
   //     </div>
   //   );
+
+  // const handelopenmodal=()=>{
+    
+  // }
 
   if (error) {
     return (
@@ -43,7 +53,7 @@ const UserListPage = () => {
     <div>
       <h1>UserListPage</h1>
       <>
-        <ReusableTable columns={UsersColumn} data={users} loading={loading} />
+        <ReusableTable columns={UsersColumn({onDelete:handleOpenModalDeleteModal})} data={users} loading={loading} />
         {!loading && users.length === 0 && (
           <StatusView
             type="empty"
@@ -56,6 +66,9 @@ const UserListPage = () => {
         setPage={setPage}
         totalPage={totalPages}
       />
+      <ReusableModal isOpen={selectedId !==null} onClose={handleCloseModal} >
+        <h1>deleted user</h1>
+      </ReusableModal>
     </div>
   );
 };

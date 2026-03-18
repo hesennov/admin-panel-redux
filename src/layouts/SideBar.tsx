@@ -5,12 +5,12 @@ export default function SideBar(){
     return(
         <div className=" flex">
             <aside className="min-h-screen bg-gray-800 w-64 text-white flex flex-col">
-                <h2>Admin Panel</h2>
+                <h2 className="font-bold text-2xl mb-2">Admin Panel</h2>
                 <nav className="flex flex-col gap-1">
-                    <Link to={'/users'}>Users</Link>
-                    <Link to={'/products'}>Products</Link>
-                    <Link to={'/orders'}>Orders</Link>
-                    <Link to={'/null'}>null</Link>
+                    <Link className="hover:underline"  to={'/users'}>Users</Link>
+                    <Link  className="hover:underline" to={'/products'}>Products</Link>
+                    <Link  className="hover:underline" to={'/orders'}>Orders</Link>
+                    <Link  className="hover:underline" to={'/null'}>null</Link>
                 </nav>
             </aside>
             <div className="bg-gray-200 p-6 flex-1">

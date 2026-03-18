@@ -7,11 +7,13 @@ import {
   editUser,
   setPage,
   setSearch,
+  handleCloseModal,
+  handleOpenModalDeleteModal,
 } from "../store/users/userSlice";
 import { useEffect } from "react";
 export function useUsers() {
   const dispatch = useDispatch<AppDispatch>();
-  const { loading, error, page, search, totalPages, users } = useSelector(
+  const { loading, error, page, search, totalPages, users,selectedId, editingUser } = useSelector(
     (state: RootState) => state.users,
   );
 
@@ -26,10 +28,14 @@ export function useUsers() {
     search,
     totalPages,
     users,
+    selectedId,
+    editingUser,
     setSearch :(s:string)=>dispatch(setSearch(s)),
     setPage:(p:number)=>dispatch(setPage(p)),
     deleteUser:(id:number)=>dispatch(deleteUser(id)),
     editUser:(id:number,data:UpdateUserData) =>dispatch(editUser({id,data})),
-    fetchUser:()=>dispatch(fetchUser({page,search}))
+    fetchUser:()=>dispatch(fetchUser({page,search})),
+    handleCloseModal:()=>dispatch(handleCloseModal()),
+    handleOpenModalDeleteModal:(id:number)=>dispatch(handleOpenModalDeleteModal(id))
   };
 }

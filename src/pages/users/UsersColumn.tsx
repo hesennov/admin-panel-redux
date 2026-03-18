@@ -2,7 +2,10 @@ import { deleteUser } from "../../store/users/userSlice";
 import type { Column } from "../../types/reusableTable";
 import type { User } from "../../types/user";
 
-export  const UsersColumn: Column<User>[] = [
+export  const UsersColumn=(actions:{
+  onDelete?:(id:number)=>void;
+  onEdit?:(id:number)=>void
+}) :Column<User>[] => [
     { label: "Name", key: "name" },
     { label: "Surname", key: "surname" },
     { label: "Email", key: "email" },
@@ -20,15 +23,14 @@ export  const UsersColumn: Column<User>[] = [
     {
       label: "Actions",
       key: "id",
-      render: (_, row) => {
-        return (
-          <button
-            className="px-2 py-1 bg-red-500 text-white border rounded"
-            onClick={() => deleteUser(row.id)}
-          >
-            Delete
-          </button>
-        );
-      },
+      render: (_, row) => (
+        <div className="flex gap-2">
+          {actions.onDelete && (
+            <button className="px-3 py-1 bg-red-500 rounded text-white" onClick={()=>actions.onDelete?.(row.id)}>Delete</button>
+          )}{actions.onEdit &&(
+            <button className="px-3 py-1 bg-yellow-500 rounded" onClick={()=>actions.onEdit?.(row.id)}>Edit</button>
+          )}
+        </div>
+      )
     },
   ];
