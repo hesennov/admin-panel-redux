@@ -24,6 +24,7 @@ export default function ReusablePagination({
         const pageNumber = i + 1;
         return (
           <button
+          key={pageNumber}
             className={`px-3 py-1 rounded border ${page === pageNumber ? "bg-blue-600 text-white" : "bg-white"}`}
             onClick={() => setPage(pageNumber)}
           >
