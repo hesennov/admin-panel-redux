@@ -4,14 +4,14 @@ import ReusableModal from "../../components/ReusableModal/ReusableModal";
 import ReusablePagination from "../../components/ReusablePagination/ReusablePagination";
 import ReusableTable from "../../components/ReusableTable/ReusableTable";
 import { useUsers } from "../../hooks/useUsers";
-import type { User } from "../../types/user";
+// import type { User } from "../../types/user";
 import { UsersColumn } from "./UsersColumn";
 
 const UserListPage = () => {
   const {
     error,
     loading,
-    // deleteUser,
+    deleteUser,
     // editUser,
     fetchUser,
     page,
@@ -24,7 +24,6 @@ const UserListPage = () => {
     editingUser,
     handleCloseModal,
     handleOpenModalDeleteModal,
-    
   } = useUsers();
 
   // useEffect(()=>{console.log(users)},[users])
@@ -36,7 +35,7 @@ const UserListPage = () => {
   //   );
 
   // const handelopenmodal=()=>{
-    
+
   // }
 
   if (error) {
@@ -53,7 +52,11 @@ const UserListPage = () => {
     <div>
       <h1>UserListPage</h1>
       <>
-        <ReusableTable columns={UsersColumn({onDelete:handleOpenModalDeleteModal})} data={users} loading={loading} />
+        <ReusableTable
+          columns={UsersColumn({ onDelete: handleOpenModalDeleteModal })}
+          data={users}
+          loading={loading}
+        />
         {!loading && users.length === 0 && (
           <StatusView
             type="empty"
@@ -66,8 +69,26 @@ const UserListPage = () => {
         setPage={setPage}
         totalPage={totalPages}
       />
-      <ReusableModal isOpen={selectedId !==null} onClose={handleCloseModal} >
-        <h1>deleted user</h1>
+      <ReusableModal isOpen={selectedId !== null} onClose={handleCloseModal}>
+        <div>
+          <h1 className="font-bold text-xl text-center">Delete user</h1>
+          <p className="font-semibold">Are you sure to delete this user? </p>
+          <div className="buttons flex justify-end mt-3 gap-1">
+            <button
+              className="px-4 py-2 bg-gray-500 text-white rounded hover:opacity-50 active:opacity-100"
+              onClick={() => handleCloseModal()}
+            >
+              Cancel
+            </button>
+            <button
+              className="px-4 py-2 bg-red-500 text-white rounded hover:opacity-50 active:opacity-100"
+              onClick={() => selectedId && deleteUser(selectedId)}
+            >
+              {" "}
+              Delete
+            </button>
+          </div>
+        </div>
       </ReusableModal>
     </div>
   );
