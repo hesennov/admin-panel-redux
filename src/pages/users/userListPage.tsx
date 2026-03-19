@@ -6,13 +6,14 @@ import ReusableTable from "../../components/ReusableTable/ReusableTable";
 import { useUsers } from "../../hooks/useUsers";
 // import type { User } from "../../types/user";
 import { UsersColumn } from "./UsersColumn";
-
+import UserEditForm from "./UserEditForm";
+import { useMemo } from "react";
 const UserListPage = () => {
   const {
     error,
     loading,
     deleteUser,
-    // editUser,
+    editUser,
     fetchUser,
     page,
     // search,
@@ -21,7 +22,7 @@ const UserListPage = () => {
     totalPages,
     users,
     selectedId,
-    editingUser, 
+    editingUser,
     handleCloseModal,
     handleOpenModalDeleteModal,
     handleOpenEditModal,
@@ -39,6 +40,15 @@ const UserListPage = () => {
 
   // }
 
+  const columns = useMemo(
+    () =>
+      UsersColumn({
+        onDelete: handleOpenModalDeleteModal,
+        onEdit: handleOpenEditModal,
+      }),
+    [handleOpenEditModal, handleOpenModalDeleteModal],
+  );
+
   if (error) {
     return (
       <StatusView
@@ -48,13 +58,14 @@ const UserListPage = () => {
       />
     );
   }
-
+console.log("RENDER USER LIST")
+console.log("LOADING:", loading);
   return (
     <div>
       <h1>UserListPage</h1>
       <>
         <ReusableTable
-          columns={UsersColumn({ onDelete: handleOpenModalDeleteModal,onEdit:handleOpenEditModal })}
+          columns={columns}
           data={users}
           loading={loading}
         />
@@ -94,7 +105,17 @@ const UserListPage = () => {
       </ReusableModal>
 
       {/* modal for edit */}
-      <ReusableModal onClose={handleCloseModal} isOpen={!!editingUser}> <div>Editing User</div></ReusableModal>
+      <ReusableModal onClose={handleCloseModal} isOpen={!!editingUser}>
+        {" "}
+        Editing User {editingUser?.name}-{editingUser?.surname}
+        {editingUser && (
+          <UserEditForm
+            onClose={handleCloseModal}
+            user={editingUser}
+            onSave={editUser}
+          />
+        )}
+      </ReusableModal>
     </div>
   );
 };

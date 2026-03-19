@@ -39,7 +39,7 @@ export const deleteUser = createAsyncThunk(
 export const editUser = createAsyncThunk(
   "users/edit",
   async (
-    { id, data }: { id: number; data: UpdateUserData },
+    { id, data }: { id:number, data: UpdateUserData },
     { rejectWithValue },
   ) => {
     try {
@@ -85,6 +85,7 @@ const usersSlice = createSlice({
       // if(user) state.editingUser = user
       state.editingUser = action.payload
       console.log(action.payload.id, action.payload);
+      //bize gelen user onsuzda deyisilecek olan user olduqu ucun onu elece edeitingUsere  beraber edirik 
       
     }
   },

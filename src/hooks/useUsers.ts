@@ -18,9 +18,10 @@ export function useUsers() {
     (state: RootState) => state.users,
   );
 
+
   useEffect(() => {
-    dispatch(fetchUser({ page, search }));
-  }, [page, search]);
+  dispatch(fetchUser({ page, search }));
+}, [page, search]);
 
   return {
     loading,
