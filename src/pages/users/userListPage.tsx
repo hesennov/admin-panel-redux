@@ -28,16 +28,12 @@ const UserListPage = () => {
     handleOpenEditModal,
   } = useUsers();
 
-  // useEffect(()=>{console.log(users)},[users])
   // if (loading)
   //   return (
   //     <div className="flex items-center justify-center h-64">
   //       <div className="animate-spin h-12 w-12 rounded-full border-b-2 border-indigo-600 "></div>
   //     </div>
   //   );
-
-  // const handelopenmodal=()=>{
-
   // }
 
   const columns = useMemo(
@@ -58,17 +54,12 @@ const UserListPage = () => {
       />
     );
   }
-console.log("RENDER USER LIST")
-console.log("LOADING:", loading);
+  console.log("RENDER USER LIST");
+  console.log("LOADING:", loading);
   return (
     <div>
-      <h1>UserListPage</h1>
       <>
-        <ReusableTable
-          columns={columns}
-          data={users}
-          loading={loading}
-        />
+        <ReusableTable columns={columns} data={users} loading={loading} />
         {!loading && users.length === 0 && (
           <StatusView
             type="empty"

@@ -1,4 +1,3 @@
-import { useUsers } from "../../hooks/useUsers";
 import { useState } from "react";
 // import type { UpdateUserData, User } from "../../types/user";
 import type { User, UpdateUserData } from "../../types/user";
@@ -10,7 +9,6 @@ type Props = {
 };
 
 export default function UserEditForm({ onClose, onSave, user }: Props) {
-  const { editingUser } = useUsers();
   const [form, setForm] = useState({
     name: user.name,
     surname: user.surname,
@@ -28,9 +26,9 @@ export default function UserEditForm({ onClose, onSave, user }: Props) {
     // setForm((prev)=> ({...prev,[e.target.name]:e.target.value}))
   };
 
-  const handleSubmit= ()=>{
-    onSave(user.id, form)
-  }
+  const handleSubmit = () => {
+    onSave(user.id, form);
+  };
 
   return (
     <div className="flex flex-col gap-2">
@@ -40,19 +38,22 @@ export default function UserEditForm({ onClose, onSave, user }: Props) {
         type="text"
         name="name"
         placeholder="name"
-        value={form?.name} onChange={handleChange}
+        value={form?.name}
+        onChange={handleChange}
       />
       <input
         className="border p-2 rounded"
         type="text"
         name="surname"
-        value={form.surname} onChange={handleChange}
+        value={form.surname}
+        onChange={handleChange}
       />
       <input
         className="border p-2 rounded"
         type="text"
         name="email"
-        value={form.email} onChange={handleChange}
+        value={form.email}
+        onChange={handleChange}
       />
       <label className="flex items-center gap-2 cursor-pointer p-2 border rounded hover:bg-gray-50">
         <input
@@ -60,14 +61,26 @@ export default function UserEditForm({ onClose, onSave, user }: Props) {
           type="checkbox"
           name="active"
           checked={form.active}
-        onChange={handleChange}
+          onChange={handleChange}
         />
-        <span  className={
+        <span
+          className={
             form.active ? "text-green-600 font-medium" : "text-red-500"
-          }>{form.active ? "active" :"inactive"}</span>
+          }
+        >
+          {form.active ? "active" : "inactive"}
+        </span>
       </label>
       <div className="flex gap-1">
-<button onClick={handleSubmit}>save</button>
+        <button
+          className="px-3 py-1 bg-blue-500 text-white"
+          onClick={handleSubmit}
+        >
+          save
+        </button>
+        <button className="px-3 py-1 bg-red-500 text-white" onClick={onClose}>
+          cancel
+        </button>
       </div>
     </div>
   );

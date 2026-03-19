@@ -9,8 +9,7 @@ interface UsersState {
   page: number;
   totalPages: number;
   search: string;
-  selectedId : number |null;
-  editingUser: User | null
+
 }
 
 export const fetchUser = createAsyncThunk(
@@ -59,8 +58,7 @@ const initialState: UsersState = {
   page: 1,
   totalPages: 1,
   search: "",
-  selectedId:null,
-  editingUser:null
+
 };
 
 const usersSlice = createSlice({
@@ -74,20 +72,20 @@ const usersSlice = createSlice({
     setSearch: (state, action) => {
       ((state.search = action.payload), (state.page = 1));
     },
-    handleCloseModal :(state)=>{
-       state.selectedId = null
-       state.editingUser = null
+    // handleCloseModal :(state)=>{
+    //    state.selectedId = null
+    //    state.editingUser = null
       
-    },handleOpenModalDeleteModal : (state,action)=>{
-      state.selectedId = action.payload
-    },handleOpenEditModal :(state,action)=>{
-      // const user = state.users.find((u)=>u.id === action.payload.id)
-      // if(user) state.editingUser = user
-      state.editingUser = action.payload
-      console.log(action.payload.id, action.payload);
-      //bize gelen user onsuzda deyisilecek olan user olduqu ucun onu elece edeitingUsere  beraber edirik 
+    // },handleOpenModalDeleteModal : (state,action)=>{
+    //   state.selectedId = action.payload
+    // },handleOpenEditModal :(state,action)=>{
+    //   // const user = state.users.find((u)=>u.id === action.payload.id)
+    //   // if(user) state.editingUser = user
+    //   state.editingUser = action.payload
+    //   console.log(action.payload.id, action.payload);
+    //   //bize gelen user onsuzda deyisilecek olan user olduqu ucun onu elece edeitingUsere  beraber edirik 
       
-    }
+    // }
   },
 
   extraReducers: (builder) => {
@@ -106,14 +104,14 @@ const usersSlice = createSlice({
         console.log(`${state.error} erorororor`)
     }).addCase(deleteUser.fulfilled,(state,action)=>{
         state.users = state.users.filter((u)=>u.id !== action.payload)
-        state.selectedId = null
+        // state.selectedId = null
     }).addCase(editUser.fulfilled, (state,{payload})=>{
         const index = state.users.findIndex((u)=>u.id ===payload.id)
         if(index !== -1) state.users[index] = payload;
-        state.editingUser =null
+        // state.editingUser =null
     })
   },
 });
 
-export const {setPage,setSearch,handleCloseModal,handleOpenModalDeleteModal,handleOpenEditModal} = usersSlice.actions
+export const {setPage,setSearch} = usersSlice.actions
 export default usersSlice.reducer;
