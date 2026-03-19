@@ -1,4 +1,4 @@
-import type { UpdateUserData } from "../types/user";
+import type { UpdateUserData, User } from "../types/user";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../store";
 import {
@@ -9,11 +9,12 @@ import {
   setSearch,
   handleCloseModal,
   handleOpenModalDeleteModal,
+  handleOpenEditModal,
 } from "../store/users/userSlice";
 import { useEffect } from "react";
 export function useUsers() {
   const dispatch = useDispatch<AppDispatch>();
-  const { loading, error, page, search, totalPages, users,selectedId, editingUser } = useSelector(
+  const { loading, error, page, search, totalPages, users,selectedId, editingUser, } = useSelector(
     (state: RootState) => state.users,
   );
 
@@ -36,6 +37,7 @@ export function useUsers() {
     editUser:(id:number,data:UpdateUserData) =>dispatch(editUser({id,data})),
     fetchUser:()=>dispatch(fetchUser({page,search})),
     handleCloseModal:()=>dispatch(handleCloseModal()),
-    handleOpenModalDeleteModal:(id:number)=>dispatch(handleOpenModalDeleteModal(id))
+    handleOpenModalDeleteModal:(id:number)=>dispatch(handleOpenModalDeleteModal(id)),
+    handleOpenEditModal:(data:User)=>dispatch(handleOpenEditModal(data))
   };
 }

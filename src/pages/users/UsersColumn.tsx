@@ -1,10 +1,9 @@
-import { deleteUser } from "../../store/users/userSlice";
 import type { Column } from "../../types/reusableTable";
 import type { User } from "../../types/user";
 
 export  const UsersColumn=(actions:{
   onDelete?:(id:number)=>void;
-  onEdit?:(id:number)=>void
+  onEdit?:(data:User)=>void
 }) :Column<User>[] => [
     { label: "Name", key: "name" },
     { label: "Surname", key: "surname" },
@@ -28,7 +27,7 @@ export  const UsersColumn=(actions:{
           {actions.onDelete && (
             <button className="px-3 py-1 bg-red-500 rounded text-white" onClick={()=>actions.onDelete?.(row.id)}>Delete</button>
           )}{actions.onEdit &&(
-            <button className="px-3 py-1 bg-yellow-500 rounded" onClick={()=>actions.onEdit?.(row.id)}>Edit</button>
+            <button className="px-3 py-1 bg-yellow-500 rounded" onClick={()=>actions.onEdit?.(row)}>Edit</button>
           )}
         </div>
       )

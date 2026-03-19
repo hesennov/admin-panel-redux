@@ -27,12 +27,11 @@ export default function ReusableTable<T extends { id: number | string }>({
           {loading
             ? skeletonRows.map((_, i) => (
                 <tr key={i} className="border">
-                  {" "}
                   {columns.map((col) => (
                     <td key={String(col.key)} className="px-4 py-2 border">
                       <div className="h-4 w-full bg-gray-200 rounded animate-pulse"></div>
                     </td>
-                  ))}{" "}
+                  ))}
                 </tr>
               ))
             : data.map((row) => (

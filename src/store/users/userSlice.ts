@@ -44,6 +44,7 @@ export const editUser = createAsyncThunk(
   ) => {
     try {
       const response = await userService.update(id, data);
+      console.log("Updated Responsed", response)
       return response;
     } catch (error) {
       return rejectWithValue(error);
@@ -56,7 +57,7 @@ const initialState: UsersState = {
   loading: false,
   error: null,
   page: 1,
-  totalPages: 10,
+  totalPages: 1,
   search: "",
   selectedId:null,
   editingUser:null
@@ -75,10 +76,16 @@ const usersSlice = createSlice({
     },
     handleCloseModal :(state)=>{
        state.selectedId = null
+       state.editingUser = null
       
     },handleOpenModalDeleteModal : (state,action)=>{
       state.selectedId = action.payload
-
+    },handleOpenEditModal :(state,action)=>{
+      // const user = state.users.find((u)=>u.id === action.payload.id)
+      // if(user) state.editingUser = user
+      state.editingUser = action.payload
+      console.log(action.payload.id, action.payload);
+      
     }
   },
 
@@ -99,12 +106,13 @@ const usersSlice = createSlice({
     }).addCase(deleteUser.fulfilled,(state,action)=>{
         state.users = state.users.filter((u)=>u.id !== action.payload)
         state.selectedId = null
-    }).addCase(editUser.fulfilled, ({users},{payload})=>{
-        const index = users.findIndex((u)=>u.id ===payload.id)
-        if(index !== -1) users[index] = payload;
+    }).addCase(editUser.fulfilled, (state,{payload})=>{
+        const index = state.users.findIndex((u)=>u.id ===payload.id)
+        if(index !== -1) state.users[index] = payload;
+        state.editingUser =null
     })
   },
 });
 
-export const {setPage,setSearch,handleCloseModal,handleOpenModalDeleteModal} = usersSlice.actions
+export const {setPage,setSearch,handleCloseModal,handleOpenModalDeleteModal,handleOpenEditModal} = usersSlice.actions
 export default usersSlice.reducer;

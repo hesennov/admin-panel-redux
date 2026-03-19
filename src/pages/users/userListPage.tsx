@@ -21,9 +21,10 @@ const UserListPage = () => {
     totalPages,
     users,
     selectedId,
-    editingUser,
+    editingUser, 
     handleCloseModal,
     handleOpenModalDeleteModal,
+    handleOpenEditModal,
   } = useUsers();
 
   // useEffect(()=>{console.log(users)},[users])
@@ -53,7 +54,7 @@ const UserListPage = () => {
       <h1>UserListPage</h1>
       <>
         <ReusableTable
-          columns={UsersColumn({ onDelete: handleOpenModalDeleteModal })}
+          columns={UsersColumn({ onDelete: handleOpenModalDeleteModal,onEdit:handleOpenEditModal })}
           data={users}
           loading={loading}
         />
@@ -69,6 +70,7 @@ const UserListPage = () => {
         setPage={setPage}
         totalPage={totalPages}
       />
+      {/* modal for delete */}
       <ReusableModal isOpen={selectedId !== null} onClose={handleCloseModal}>
         <div>
           <h1 className="font-bold text-xl text-center">Delete user</h1>
@@ -90,6 +92,9 @@ const UserListPage = () => {
           </div>
         </div>
       </ReusableModal>
+
+      {/* modal for edit */}
+      <ReusableModal onClose={handleCloseModal} isOpen={!!editingUser}> <div>Editing User</div></ReusableModal>
     </div>
   );
 };

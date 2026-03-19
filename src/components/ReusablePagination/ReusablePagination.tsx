@@ -12,7 +12,7 @@ export default function ReusablePagination({
   if (totalPage <= 1) return null;
 
   return (
-    <div className="felx justify-center items-center gap-2 mt-6">
+    <div className="flex justify-center items-center gap-2 mt-6">
       <button
         className="px-3 py-1 border raunded disabled:opacity-50"
         onClick={() => setPage(page - 1)}
