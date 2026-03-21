@@ -55,7 +55,7 @@ export function useUsers() {
     setPage: (p: number) => dispatch(setPage(p)),
     deleteUser: (id: number) => dispatch(deleteUser(id)),
     editUser: (id: number, data: UpdateUserData) =>
-      dispatch(editUser({ id, data })),
+    dispatch(editUser({ id, data })),
     fetchUser: () => dispatch(fetchUser({ page, search })),
     handleCloseModal: () => handleCloseModal(),
     handleOpenModalDeleteModal: handleOpenDeleteModalCb,
