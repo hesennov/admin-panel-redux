@@ -5,6 +5,7 @@ interface TableProps<T> {
   loading: boolean;
 }
 
+//23.03.2026
 export default function ReusableTable<T extends { id: number | string }>({
   data,
   columns,
