@@ -11,15 +11,15 @@ interface GetProductsParams{
 export const productServices = {
 
     getAll : (params:GetProductsParams={}):Promise<ProductResponse>=>{
-      return apiClient.get("/product",{params})
+      return apiClient.get("/products",{params})
     },
     getById :(id:number):Promise<Product>=>{
-        return apiClient.get(`/product/${id}`)
+        return apiClient.get(`/products/${id}`)
     },
     delete:(id:number):Promise<{message:string}>=>{ 
-        return apiClient.delete(`/product/${id}`)
+        return apiClient.delete(`/products/${id}`)
     },
     edit:(id:number,data:UpdateProductData):Promise<Product>=>{
-        return apiClient.put(`/product/${id}`, data)
+        return apiClient.put(`/products/${id}`, data)
     },
 }

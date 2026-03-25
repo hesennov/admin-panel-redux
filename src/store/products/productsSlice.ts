@@ -1,26 +1,67 @@
-import { createSlice, createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
+import axios from "axios";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { productServices } from "../../services/productService";
-
-interface ProductSlice {
-  products: [];
-  loading: boolean;
+import type { Product } from "../../types/product";
+interface ParamsProps {
+  page?: number;
+  search?: string;
+  limit?:number
+}
+interface InitalState {
+  data: Product[];
   error: string | null;
-  search: "";
+  loading: boolean;
+  search: string;
   page: number;
   totalPage: number;
 }
 
-const fetchProducts = createAsyncThunk("products/fetchall",async ({page,search}:{page:number,search:string}, {rejectWithValue}) => {
-    try{
-        const response = await productServices.getAll({page,search,limit:10})
-        return response
-    }catch(error :any){
-        return rejectWithValue(error.message||"Something went wrong")
+export const fetchProducts = createAsyncThunk(
+  "products/fetchAll",
+  async (params: ParamsProps, { rejectWithValue }) => {
+    try {
+      const res = await productServices.getAll(params);
+      return res;
+    } catch (error: any) {
+      return rejectWithValue("hata");
     }
-});
+  },
+);
 
-// const productSlice = createSlice({
-//     name:"products",
-//     initialState:{},
-//     reducers:{}
-// })
+const initialState : InitalState = {
+    data:[],
+    error:null,
+    loading:false,
+    totalPage:1,
+    page:1,
+    search:"",
+}
+const productSlice = createSlice({
+    name:"product",
+    initialState,
+    reducers: {
+        setPage:(state,{payload})=>{
+            state.page = payload
+        },
+        setSearch :(state,action)=>{
+            state.search = action.payload ,
+            state.page = 1
+        }
+    },
+    extraReducers :(builder)=>{
+        builder.addCase(fetchProducts.pending,(state)=>{
+            state.loading = true;
+            state.error = null;
+        }).addCase(fetchProducts.fulfilled,(state,action)=>{
+            state.data =action.payload.data;
+            state.loading= false;
+            state.totalPage = action.payload.totalPages
+        }).addCase(fetchProducts.rejected,(state,action)=>{
+            state.loading = false;
+            state.error = action.payload as string
+        })
+    }
+})
+
+export const {setPage,setSearch} = productSlice.actions
+export default productSlice.reducer
