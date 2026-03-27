@@ -13,7 +13,7 @@ export default function ProductListPage() {
     loading,
     data,
     page,
-    search,
+    // search,
     totalPage,
     setPage,
     handleEditOpenModal,
@@ -38,6 +38,7 @@ export default function ProductListPage() {
       <StatusView
         type="error"
         message={MSG_ERROR}
+        onRetry={fetchProducts}
       />
     );
   }
@@ -49,6 +50,7 @@ export default function ProductListPage() {
           <StatusView
             type="empty"
             message={MSG_DATA_EMPTY}
+              onRetry={fetchProducts}
           />
         )}
       </>
