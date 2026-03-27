@@ -5,7 +5,7 @@ import type { Product } from "../../types/product";
 interface ParamsProps {
   page?: number;
   search?: string;
-  limit?:number
+  limit?: number;
 }
 interface InitalState {
   data: Product[];
@@ -21,47 +21,81 @@ export const fetchProducts = createAsyncThunk(
   async (params: ParamsProps, { rejectWithValue }) => {
     try {
       const res = await productServices.getAll(params);
+      // console.log(res)
       return res;
     } catch (error: any) {
       return rejectWithValue("hata");
     }
   },
 );
-
-const initialState : InitalState = {
-    data:[],
-    error:null,
-    loading:false,
-    totalPage:1,
-    page:1,
-    search:"",
-}
-const productSlice = createSlice({
-    name:"product",
-    initialState,
-    reducers: {
-        setPage:(state,{payload})=>{
-            state.page = payload
-        },
-        setSearch :(state,action)=>{
-            state.search = action.payload ,
-            state.page = 1
-        }
-    },
-    extraReducers :(builder)=>{
-        builder.addCase(fetchProducts.pending,(state)=>{
-            state.loading = true;
-            state.error = null;
-        }).addCase(fetchProducts.fulfilled,(state,action)=>{
-            state.data =action.payload.data;
-            state.loading= false;
-            state.totalPage = action.payload.totalPages
-        }).addCase(fetchProducts.rejected,(state,action)=>{
-            state.loading = false;
-            state.error = action.payload as string
-        })
+export const deleteProducts = createAsyncThunk(
+  "products/delete",
+  async (id: number, { rejectWithValue }) => {
+    try {
+      await productServices.delete(id);
+      return id;
+    } catch (error) {
+      return rejectWithValue(error as string);
     }
-})
+  },
+);
+export const editProducts = createAsyncThunk(
+  "products/edit",
+  async ({ id, data }: { id: number; data: Product }, { rejectWithValue }) => {
+    try {
+      const response = await productServices.edit(id, data);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error as string);
+    }
+  },
+);
+const initialState: InitalState = {
+  data: [],
+  error: null,
+  loading: false,
+  totalPage: 1,
+  page: 1,
+  search: "",
+};
+const productSlice = createSlice({
+  name: "product",
+  initialState,
+  reducers: {
+    setPage: (state, { payload }) => {
+      state.page = payload;
+    },
+    setSearch: (state, action) => {
+      ((state.search = action.payload), (state.page = 1));
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchProducts.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchProducts.fulfilled, (state, action) => {
+        state.data = action.payload.data;
+        state.loading = false;
+        state.totalPage = action.payload.totalPages;
+        console.log(action.payload.data, "fetchproducts/fulfiled");
 
-export const {setPage,setSearch} = productSlice.actions
-export default productSlice.reducer
+        console.log(action.payload.data, "fetchproducts/fulfiled");
+      })
+      .addCase(fetchProducts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(deleteProducts.fulfilled, (state, action) => {
+        state.data = state.data.filter((p) => p.id !== action.payload);
+      })
+      .addCase(editProducts.fulfilled, (state, action) => {
+        const editIndex = state.data.findIndex((p) => p.id === action.payload.id,);
+       state.data[editIndex] = action.payload
+      });
+  },
+});
+
+export const { setPage, setSearch } = productSlice.actions;
+export default productSlice.reducer;
