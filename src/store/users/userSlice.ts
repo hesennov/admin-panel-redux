@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import type { User, UpdateUserData } from "../../types/user";
-import { userService } from "../../services/userService";
+import type { User, UpdateUserData } from "@/types/user";
+import { userService } from "@/services/userService";
 
 interface UsersState {
   users: User[];

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { productServices } from "../../services/productService";
-import type { Product, UpdateProductData } from "../../types/product";
+import { productServices } from "@/services/productService";
+import type { Product, UpdateProductData } from "@/types/product";
 interface ParamsProps {
   page?: number;
   search?: string;

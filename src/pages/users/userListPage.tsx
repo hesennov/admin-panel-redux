@@ -1,12 +1,12 @@
 // import { useEffect } from "react";
-import StatusView from "../../common/StatusView";
-import ReusableModal from "../../components/ReusableModal/ReusableModal";
-import ReusablePagination from "../../components/ReusablePagination/ReusablePagination";
-import ReusableTable from "../../components/ReusableTable/ReusableTable";
-import { useUsers } from "../../hooks/useUsers";
-// import type { User } from "../../types/user";
-import { UsersColumn } from "./UsersColumn";
-import UserEditForm from "./UserEditForm";
+import StatusView from "@/common/StatusView";
+import ReusableModal from "@/components/ReusableModal/ReusableModal";
+import ReusablePagination from "@/components/ReusablePagination/ReusablePagination";
+import ReusableTable from "@/components/ReusableTable/ReusableTable";
+import { useUsers } from "@/hooks/useUsers";
+// import type { User } from "@/types/user";
+import { UsersColumn } from "@/pages/users/UsersColumn";
+import UserEditForm from "@/pages/users/UserEditForm";
 import { useMemo } from "react";
 const UserListPage = () => {
   const {

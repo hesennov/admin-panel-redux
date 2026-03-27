@@ -1,5 +1,5 @@
 import { Link,Outlet } from "react-router-dom";
-import {NAV_ITEMS} from '@/constants/navigation'
+import {NAV_ITEMS} from '@/constants/navigation/navigation'
 export default function MainLayout(){
     return(
         <div className=" flex">

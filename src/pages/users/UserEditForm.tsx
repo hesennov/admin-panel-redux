@@ -1,6 +1,5 @@
 import { useState } from "react";
-// import type { UpdateUserData, User } from "../../types/user";
-import type { User, UpdateUserData } from "../../types/user";
+import type { User, UpdateUserData } from "@/types/user";
 
 type Props = {
   user: User;

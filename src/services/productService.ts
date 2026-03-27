@@ -1,5 +1,5 @@
-import apiClient from "../api/client";
-import type {Product, ProductResponse,UpdateProductData } from "../types/product";
+import apiClient from "@/api/client";
+import type {Product, ProductResponse,UpdateProductData } from "@/types/product";
 
 interface GetProductsParams{
     page?:number;

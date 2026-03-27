@@ -1,5 +1,5 @@
-import type { Column } from "../../types/reusableTable";
-import type { Product } from "../../types/product";
+import type { Column } from "@/types/reusableTable";
+import type { Product } from "@/types/product";
 
 export const productsColum = (actions: {
   onDelete?: (id: number) => void;

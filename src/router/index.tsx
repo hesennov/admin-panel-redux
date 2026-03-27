@@ -1,6 +1,6 @@
 import { BrowserRouter, useRoutes } from "react-router-dom";
 import { Suspense } from "react";
-import { PAGES } from "@/constants/navigation";
+import { PAGES } from "@/constants/navigation/navigation";
 
 const Elements = () => useRoutes(PAGES);
 

@@ -1,4 +1,4 @@
-import type { Product, UpdateProductData } from "../../types/product";
+import type { Product, UpdateProductData } from "@/types/product";
 import { useState } from "react";
 interface EditProps {
   product: Product;

@@ -1,5 +1,5 @@
-import type { Column } from "../../types/reusableTable";
-import type { User } from "../../types/user";
+import type { Column } from "@/types/reusableTable";
+import type { User } from "@/types/user";
 
 export const UsersColumn = (actions: {
   onDelete?: (id: number) => void;

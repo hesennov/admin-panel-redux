@@ -1,10 +1,12 @@
-import { useProducts } from "../../hooks/useProducts";
-import ReusableTable from "../../components/ReusableTable/ReusableTable";
-import { productsColum } from "./productsColumn";
-import ReusablePagination from "../../components/ReusablePagination/ReusablePagination";
-import StatusView from "../../common/StatusView";
-import ReusableModal from "../../components/ReusableModal/ReusableModal";
-import ProductEditForm from "./ProductEditForm";
+import { useProducts } from "@/hooks/useProducts";
+import ReusableTable from "@/components/ReusableTable/ReusableTable";
+import { productsColum } from "@/pages/products/productsColumn";
+import ReusablePagination from "@/components/ReusablePagination/ReusablePagination";
+import StatusView from "@/common/StatusView";
+import ReusableModal from "@/components/ReusableModal/ReusableModal";
+import ProductEditForm from "@/pages/products/ProductEditForm";
+import { MSG_DATA_EMPTY } from "@/constants/messages/messages";
+import { MSG_ERROR } from "@/constants/messages/messages";
 export default function ProductListPage() {
   const {
     error,
@@ -35,7 +37,7 @@ export default function ProductListPage() {
     return (
       <StatusView
         type="error"
-        message="Could not connect to the server.Please make sure the API is running, amigo!!"
+        message={MSG_ERROR}
       />
     );
   }
@@ -46,7 +48,7 @@ export default function ProductListPage() {
         {!loading && data.length === 0 && (
           <StatusView
             type="empty"
-            message="It looks a bit quiet here...... No products have been added yet"
+            message={MSG_DATA_EMPTY}
           />
         )}
       </>

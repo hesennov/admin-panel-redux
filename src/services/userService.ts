@@ -1,5 +1,5 @@
-import apiClient from "../api/client";
-import type { User,UserResponse,UpdateUserData,CreateUserData } from "../types/user";
+import apiClient from "@/api/client";
+import type { User,UserResponse,UpdateUserData,CreateUserData } from "@/types/user";
 
 interface getUsersParams {
     page?:number;
