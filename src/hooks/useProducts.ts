@@ -6,30 +6,29 @@ import {
   deleteProducts,
   setPage,
   setSearch,
+  setDeletedId,setSelectedProduct
 } from "../store/products/productsSlice";
-import { useEffect, useState } from "react";
-import type { Product } from "../types/product";
+import { useEffect } from "react";
+import type { Product, UpdateProductData } from "../types/product";
 export function useProducts() {
   const dispatch = useDispatch<AppDispatch>();
-  const { loading, error, data, page, search, totalPage, } = useSelector(
+  const { loading, error, data, page, search, totalPage, deletedId,selectedProduct } = useSelector(
     (state: RootState) => state.products,
   );
-  const [deletedId, setDeletedId] = useState<number | null>(null);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   useEffect(() => {
     dispatch(fetchProducts({ page, search, limit: 10 }));
   }, [page, search]);
 
   const handleOpenDeleteModal = (id: number) => {
-    setDeletedId(id);
+    dispatch(setDeletedId(id));
   };
   const handleEditOpenModal = (data: Product) => {
-    setSelectedProduct(data);
+   dispatch(setSelectedProduct(data));
   };
   const handleCloseAllModal = ()=>{
-    setSelectedProduct(null),
-    setDeletedId(null)
+    dispatch(setSelectedProduct(null)),
+    dispatch(setDeletedId(null))
   }
 
 
@@ -48,7 +47,7 @@ export function useProducts() {
     handleEditOpenModal :(data:Product)=>handleEditOpenModal(data),
     handleCloseAllModal:()=>handleCloseAllModal(),
     fetchProducts:()=> dispatch(fetchProducts({page,search,limit:10})),
-    editProducts:(id:number,data:Product)=>dispatch(editProducts({id,data})), //edit
+    editProducts:(id:number,data:UpdateProductData)=>dispatch(editProducts({id,data})), //edit
     deleteProducts:(id:number)=>dispatch(deleteProducts(id)), //delete 
   };
 }

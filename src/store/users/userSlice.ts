@@ -9,6 +9,8 @@ interface UsersState {
   page: number;
   totalPages: number;
   search: string;
+  editingUser:User |null
+  selectedId : number |null
 
 }
 
@@ -58,6 +60,8 @@ const initialState: UsersState = {
   page: 1,
   totalPages: 1,
   search: "",
+  selectedId : null,
+  editingUser:null,
 
 };
 
@@ -72,6 +76,12 @@ const usersSlice = createSlice({
     setSearch: (state, action) => {
       ((state.search = action.payload), (state.page = 1));
     },
+    setEditingUser :(state,action)=>{
+      state.editingUser = action.payload
+    },
+    setSelectedId :(state,action)=>{
+      state.selectedId = action.payload
+    }
     // handleCloseModal :(state)=>{
     //    state.selectedId = null
     //    state.editingUser = null
@@ -104,14 +114,14 @@ const usersSlice = createSlice({
         console.log(`${state.error} erorororor`)
     }).addCase(deleteUser.fulfilled,(state,action)=>{
         state.users = state.users.filter((u)=>u.id !== action.payload)
-        // state.selectedId = null
+        state.selectedId = null
     }).addCase(editUser.fulfilled, (state,{payload})=>{
         const index = state.users.findIndex((u)=>u.id ===payload.id)
         if(index !== -1) state.users[index] = payload;
-        // state.editingUser =null
+        state.editingUser =null
     })
   },
 });
 
-export const {setPage,setSearch} = usersSlice.actions
+export const {setPage,setSearch,setEditingUser,setSelectedId} = usersSlice.actions
 export default usersSlice.reducer;

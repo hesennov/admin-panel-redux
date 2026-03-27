@@ -7,26 +7,26 @@ import {
   editUser,
   setPage,
   setSearch,
+  setSelectedId,
+  setEditingUser
 } from "../store/users/userSlice";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 export function useUsers() {
   const dispatch = useDispatch<AppDispatch>();
-  const { loading, error, page, search, totalPages, users } = useSelector(
+  const { loading, error, page, search, totalPages, users,editingUser,selectedId } = useSelector(
     (state: RootState) => state.users,
   );
-  const [selectedId, setSelectedId] = useState<number | null>(null);
-  const [editingUser, setEditingUser] = useState<User | null>(null);
 
   const handleOpenDeleteModal = (id: number) => {
-    setSelectedId(id);
+    dispatch(setSelectedId(id));
   };
   const handleCloseModal = () => {
-    setEditingUser(null);
-    setSelectedId(null);
+    dispatch(setEditingUser(null));
+    dispatch(setSelectedId(null));
   };
 
   const handleOpenEditModal = (data: User) => {
-    setEditingUser(data);
+    dispatch(setEditingUser(data));
   };
   useEffect(() => {
     dispatch(fetchUser({ page, search }));

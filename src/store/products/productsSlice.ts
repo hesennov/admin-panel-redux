@@ -1,7 +1,6 @@
-import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { productServices } from "../../services/productService";
-import type { Product } from "../../types/product";
+import type { Product, UpdateProductData } from "../../types/product";
 interface ParamsProps {
   page?: number;
   search?: string;
@@ -14,6 +13,8 @@ interface InitalState {
   search: string;
   page: number;
   totalPage: number;
+  selectedProduct:Product | null;
+  deletedId:number |null;
 }
 
 export const fetchProducts = createAsyncThunk(
@@ -39,9 +40,10 @@ export const deleteProducts = createAsyncThunk(
     }
   },
 );
+
 export const editProducts = createAsyncThunk(
   "products/edit",
-  async ({ id, data }: { id: number; data: Product }, { rejectWithValue }) => {
+  async ({ id, data }: { id: number; data: UpdateProductData }, { rejectWithValue }) => {
     try {
       const response = await productServices.edit(id, data);
       return response;
@@ -57,6 +59,8 @@ const initialState: InitalState = {
   totalPage: 1,
   page: 1,
   search: "",
+  selectedProduct:null,
+  deletedId:null
 };
 const productSlice = createSlice({
   name: "product",
@@ -68,6 +72,12 @@ const productSlice = createSlice({
     setSearch: (state, action) => {
       ((state.search = action.payload), (state.page = 1));
     },
+    setSelectedProduct :(state,action)=>{
+      state.selectedProduct = action.payload
+    },
+    setDeletedId :(state,action)=>{
+      state.deletedId = action.payload
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -89,13 +99,15 @@ const productSlice = createSlice({
       })
       .addCase(deleteProducts.fulfilled, (state, action) => {
         state.data = state.data.filter((p) => p.id !== action.payload);
+        state.deletedId =null
       })
       .addCase(editProducts.fulfilled, (state, action) => {
         const editIndex = state.data.findIndex((p) => p.id === action.payload.id,);
        state.data[editIndex] = action.payload
+       state.selectedProduct=null
       });
   },
 });
 
-export const { setPage, setSearch } = productSlice.actions;
+export const { setPage, setSearch,setSelectedProduct,setDeletedId } = productSlice.actions;
 export default productSlice.reducer;

@@ -1,16 +1,11 @@
 import { useProducts } from "../../hooks/useProducts";
-import { useDispatch } from "react-redux";
-import type { AppDispatch } from "../../store";
-import { useEffect, useState } from "react";
-// import {fetchProducts} from '../../store/products/productsSlice'
-import { fetchProducts } from "../../store/products/productsSlice";
 import ReusableTable from "../../components/ReusableTable/ReusableTable";
 import { productsColum } from "./productsColumn";
-import type { Product } from "../../types/product";
 import ReusablePagination from "../../components/ReusablePagination/ReusablePagination";
 import StatusView from "../../common/StatusView";
+import ReusableModal from "../../components/ReusableModal/ReusableModal";
+import ProductEditForm from "./ProductEditForm";
 export default function ProductListPage() {
-  const dispatch = useDispatch<AppDispatch>();
   const {
     error,
     loading,
@@ -30,11 +25,11 @@ export default function ProductListPage() {
     setSearch,
   } = useProducts();
 
-  
   const column = productsColum({
     onDelete: handleOpenDeleteModal,
     onEdit: handleEditOpenModal,
   });
+
 
   if (error) {
     return (
@@ -56,6 +51,24 @@ export default function ProductListPage() {
         )}
       </>
       <ReusablePagination page={page} setPage={setPage} totalPage={totalPage} />
+      <ReusableModal isOpen={deletedId !== null} onClose={handleCloseAllModal}>
+        <h1>Are you sure deleted This Product</h1>
+        <div className="flex justify-end gap-1 mt-4">
+          <button className="px-4 py-2 rounded bg-gray-500 text-white" onClick={handleCloseAllModal}>
+            Cancel
+          </button>
+          <button className="px-4 py-2 rounded bg-red-500 text-white" onClick={()=>deletedId && deleteProducts(deletedId)}>
+            Delete
+          </button>
+        </div>
+      </ReusableModal>
+      <ReusableModal isOpen={!!selectedProduct} onClose={handleCloseAllModal}>
+        Edit Modal
+        {selectedProduct &&(
+
+            <ProductEditForm product={selectedProduct} onClose={handleCloseAllModal} onSave={editProducts}/>
+        )}
+      </ReusableModal>
     </div>
   );
 }

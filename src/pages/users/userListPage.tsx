@@ -88,7 +88,6 @@ const UserListPage = () => {
               className="px-4 py-2 bg-red-500 text-white rounded hover:opacity-50 active:opacity-100"
               onClick={() => selectedId && deleteUser(selectedId)}
             >
-              {" "}
               Delete
             </button>
           </div>
