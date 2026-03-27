@@ -1,4 +1,4 @@
-import {Children, lazy} from 'react'
+import { lazy} from 'react'
 import MainLayout from '@/layouts/MainLayout'
 import NotFound from '@/common/NotFound'
 
@@ -11,7 +11,7 @@ const PATH_PRODUCTS = '/products'
 
 export const PAGE_USERS = {
     label:'Users',
-    path:PATH_PRODUCTS,
+    path:PATH_USERS,
     element: <UserListPage/>
 }
 
@@ -28,7 +28,7 @@ export const PAGES =[
     {
         path:'/',
         element:<MainLayout/>,
-        Children:[
+        children:[
             ...NAV_ITEMS,
             {path:'*',element:<NotFound/>}
         ]
