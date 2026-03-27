@@ -1,5 +1,5 @@
 import { BrowserRouter,Routes,Route } from "react-router-dom";
-import  Sidebar  from "./layouts/SideBar";
+import  Sidebar  from "./layouts/MainLayout";
 import UserListPage from './pages/users/UserListPage'
 import NotFoundPage from "./common/NotFound";
 import ProductListPage from "./pages/products/ProductListPage";
