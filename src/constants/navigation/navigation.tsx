@@ -1,6 +1,8 @@
-import { lazy} from 'react'
+import {  lazy} from 'react'
 import MainLayout from '@/layouts/MainLayout'
 import NotFound from '@/common/NotFound'
+import ProtectedRoute from '@/components/ProtectedRoute/ProtectedRoute'
+import { Navigate } from 'react-router-dom'
 
 
 const UserListPage = lazy(()=>import('@/pages/users/UserListPage'))
@@ -29,8 +31,33 @@ export const PAGES =[
         path:'/',
         element:<MainLayout/>,
         children:[
-            ...NAV_ITEMS,
-            {path:'*',element:<NotFound/>}
+           {
+            element:<ProtectedRoute/>,
+            children:[
+              {
+                index:true,
+                element:<Navigate to='/users' replace />
+              },
+                  ...NAV_ITEMS
+              
+            ]
+           },
+           
+           {
+            path:'*',
+            element:<NotFound/>
+           }
         ]
     }
 ]
+// export const PAGES =[
+//     {
+//         path:'/',
+//         element:<MainLayout/>,
+//         children:[
+
+//             ...NAV_ITEMS,
+//             {path:'*',element:<NotFound/>}
+//         ]
+//     }
+// ]
