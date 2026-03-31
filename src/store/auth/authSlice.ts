@@ -11,14 +11,16 @@ import type { LoginData, RegisterData } from "@/types/auth";
 type AuthUser = Pick<User,'name'|'email'> //pick means on of list|contents
 interface AuthInitalState {
   user: AuthUser | null;
-//   user: extends User;
   error: string | null;
   loading: boolean;
   token: string | null;
 }
 
 const initialState: AuthInitalState = {
-  user: null,
+//  user: JSON.parse(localStorage.getItem("user") || "null"),
+ user: localStorage.getItem("user") 
+    ? JSON.parse(localStorage.getItem("user") as string) 
+    : null,
   error: null as string | null,
   loading: false,
   token: localStorage.getItem("token") ?? null,
@@ -57,6 +59,7 @@ const authSlice = createSlice({
       state.user = null;
       state.token = null;
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
     },
   },
   extraReducers: (builder) => {
@@ -69,6 +72,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = null;
         state.user = action.payload.user;
+        localStorage.setItem("user", JSON.stringify(action.payload.user));
         state.token = action.payload.token;
         localStorage.setItem("token", action.payload.token);
       })

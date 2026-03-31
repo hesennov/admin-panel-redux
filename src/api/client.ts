@@ -30,14 +30,27 @@ apiClient.interceptors.request.use(
   },
 );
 
+// apiClient.interceptors.response.use(
+//   (response) => response.data,
+//   (error: AxiosError) => {
+//     if (error.response?.status === 401) {
+//       window.location.href = "/login";
+//       localStorage.removeItem("token");
+//     }
+//    return Promise.reject(error);
+//   },
+// );
+
 apiClient.interceptors.response.use(
   (response) => response.data,
   (error: AxiosError) => {
     if (error.response?.status === 401) {
-      window.location.href = "/login";
-      localStorage.removeItem("token");
+      if (window.location.pathname !== "/login") {
+        window.location.href = "/login";
+        localStorage.removeItem("token");
+      }
     }
-   return Promise.reject(error);
+    return Promise.reject(error);
   },
 );
 

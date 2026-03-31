@@ -5,6 +5,9 @@ import ProtectedRoute from '@/components/ProtectedRoute/ProtectedRoute'
 import { Navigate } from 'react-router-dom'
 import Login from '@/pages/auth/login/Login'
 import Register from '@/pages/auth/register/Register'
+import { FaUser } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
+import { BsBoxSeamFill } from "react-icons/bs";
 
 
 const UserListPage = lazy(()=>import('@/pages/users/UserListPage'))
@@ -17,13 +20,21 @@ const PATH_REGISTER = '/register'
 export const PAGE_USERS = {
     label:'Users',
     path:PATH_USERS,
-    element: <UserListPage/>
+    element: <UserListPage/>,
+    avatar:<FaUser />
 }
 
 export const PAGE_PRODUCTS ={
     label :"Products",
     path:PATH_PRODUCTS,
-    element:<ProductListPage/>
+    element:<ProductListPage/>,
+    avatar:<BsBoxSeamFill />
+}
+export const PAGE_Orders ={
+    label :"Orders",
+    path:PATH_PRODUCTS,
+    element:<ProductListPage/>,
+    avatar:<FaShoppingCart />
 }
 export const LOGIN_PAGE = {
     label:'Login',
@@ -39,7 +50,7 @@ export const REGISTER_PAGE = {
 }
 
 //for side bar
-export const NAV_ITEMS = [PAGE_USERS,PAGE_PRODUCTS]
+export const NAV_ITEMS = [PAGE_USERS,PAGE_PRODUCTS,PAGE_Orders]
 export const AUTH_PAGES = [LOGIN_PAGE,REGISTER_PAGE]
 export const PAGES = [
   {

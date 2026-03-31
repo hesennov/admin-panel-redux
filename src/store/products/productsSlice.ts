@@ -70,7 +70,8 @@ const productSlice = createSlice({
       state.page = payload;
     },
     setSearch: (state, action) => {
-      ((state.search = action.payload), (state.page = 1));
+      state.search = action.payload;
+       state.page = 1;
     },
     setSelectedProduct :(state,action)=>{
       state.selectedProduct = action.payload
@@ -103,7 +104,7 @@ const productSlice = createSlice({
       })
       .addCase(editProducts.fulfilled, (state, action) => {
         const editIndex = state.data.findIndex((p) => p.id === action.payload.id,);
-       state.data[editIndex] = action.payload
+     if(editIndex!==-1)  state.data[editIndex] = action.payload
        state.selectedProduct=null
       });
   },

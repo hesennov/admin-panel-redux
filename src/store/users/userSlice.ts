@@ -74,7 +74,8 @@ const usersSlice = createSlice({
     },
 
     setSearch: (state, action) => {
-      ((state.search = action.payload), (state.page = 1));
+      state.search = action.payload;
+       state.page = 1;
     },
     setEditingUser :(state,action)=>{
       state.editingUser = action.payload

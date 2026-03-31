@@ -16,10 +16,11 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    await dispatch(authLogin(form)).unwrap();
-    console.log(form);
-    navigate("/");
+    try {
+      await dispatch(authLogin(form)).unwrap();
+      console.log(form);
+      navigate("/");
+    } catch {}
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -30,9 +31,16 @@ export default function Login() {
 
   return (
     <>
-      <div>
-        <form onSubmit={handleSubmit}>
+      <div className=" p-10 bg-white border shadow-lg max-w-sm mx-auto mt-20 rounded-2xl">
+        <h1 className="font-bold text-2xl mb-4">Admin Panel</h1>
+        <h2 className="text-xl font-bold mb-4">Login</h2>
+
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3 ">
+{error&& <div className="border border-red-500 bg-red-100 rounded w-full text-red-800 py-1">{error}</div>}
           {" "}
+          <div className="email flex flex-col">
+
+          <label className="font-semibold">Email</label>
           <input
             type="text"
             name="email"
@@ -40,7 +48,11 @@ export default function Login() {
             onChange={handleChange}
             placeholder="email"
             className="border p-2 rounded"
-          />
+            />
+            </div>
+            <div className="password flex flex-col">
+          <label className="font-semibold">Password</label>
+
           <input
             type="password"
             name="password"
@@ -48,11 +60,11 @@ export default function Login() {
             placeholder="password"
             onChange={handleChange}
             className="p-3 border rounded"
-          />
-          <button type="submit" disabled={loading}>
+            />
+            </div>
+          <button type="submit" disabled={loading} className={`px-4 py-2  rounded hover:opacity-50 active:opacity-100 ${loading?"bg-yellow-500":"bg-[#6C5CE7] text-white"} `}>
             Login
           </button>
-          {error && <p className="text-red-500 text-sm">{error}</p>}
         </form>
       </div>
     </>
