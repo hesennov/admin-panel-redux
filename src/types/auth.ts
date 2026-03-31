@@ -1,0 +1,16 @@
+import type { User } from '@/types/user';
+export type AuthResponse =  {
+  user: User;
+  token: string;
+}
+export interface LoginData{
+    email:string;
+    password:string
+}
+export interface RegisterData {
+  name: string;
+  surname: string;
+  email: string;
+  password: string;
+}
+

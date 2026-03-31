@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Navigate,Outlet } from "react-router-dom"
+import { Outlet } from "react-router-dom"
 export default function ProtectedRoute(){
     const [ login,setLogin] = useState<boolean>(false)
     const handleLogin = ()=>{
