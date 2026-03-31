@@ -1,15 +1,16 @@
 import { useState } from "react"
-import { Outlet } from "react-router-dom"
+import { Navigate, Outlet } from "react-router-dom"
+import { useSelector } from "react-redux"
+import type { RootState } from "@/store"
+import Login from "@/pages/auth/login/Login"
 export default function ProtectedRoute(){
-    const [ login,setLogin] = useState<boolean>(false)
-    const handleLogin = ()=>{
-        setLogin((l)=>!l)
-    } 
+const {token} = useSelector((state:RootState)=>state.auth)
+
     return(<>
-    <button className="px-4 py-2 bg-blue-500 rounded" onClick={handleLogin}>{login? "Log Out":"Login"} </button>
+    {/* <button className="px-4 py-2 bg-blue-500 rounded" onClick={handleLogin}>{login? "Log Out":"Login"} </button> */}
 
 {/* {login? <Outlet/>:<Navigate to='/login' replace/>} */}
-{login && <Outlet/>}
+{token ? <Outlet/>:<Navigate to='/login' replace/>}
     </>
     )
-}
+}   
