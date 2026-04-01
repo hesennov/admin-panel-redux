@@ -10,8 +10,11 @@ import { FaShoppingCart } from "react-icons/fa";
 import { BsBoxSeamFill } from "react-icons/bs";
 import { MdDashboard } from "react-icons/md";
 import Dashboard from "@/pages/dashboard/Dashboard";
-const UserListPage = lazy(() => import("../../pages/users/UserListPage"));
-const ProductListPage = lazy(() => import("../..//pages/products/ProductListPage"));
+// const UserListPage = lazy(() => import("../../pages/users/UserListPage"));
+// const ProductListPage = lazy(() => import("../../pages/products/ProductListPage"));
+
+const UserListPage = lazy(() => import("@/pages/users/UserListPage"));
+const ProductListPage = lazy(() => import("@/pages/products/ProductListPage"));
 
 const PATH_USERS = "/users";
 const PATH_PRODUCTS = "/products";
