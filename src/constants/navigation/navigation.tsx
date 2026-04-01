@@ -13,8 +13,8 @@ import Dashboard from "@/pages/dashboard/Dashboard";
 // const UserListPage = lazy(() => import("../../pages/users/UserListPage"));
 // const ProductListPage = lazy(() => import("../../pages/products/ProductListPage"));
 
-const UserListPage = lazy(() => import("@/pages/users/UserListPage"));
-const ProductListPage = lazy(() => import("@/pages/products/ProductListPage"));
+const UserListPage = lazy(() => import("@/pages/users/UserListPage.tsx"));
+const ProductListPage = lazy(() => import("@/pages/products/ProductListPage.tsx"));
 
 const PATH_USERS = "/users";
 const PATH_PRODUCTS = "/products";
