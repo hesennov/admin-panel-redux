@@ -1,6 +1,6 @@
 import { authLogin } from "@/store/auth/authSlice";
 import type { RootState, AppDispatch } from "@/store";
-import { logOut } from "@/store/auth/authSlice";
+// import { logOut } from "@/store/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

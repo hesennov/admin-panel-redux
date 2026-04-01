@@ -24,7 +24,7 @@ export default function ProductListPage() {
     fetchProducts,
     handleCloseAllModal,
     selectedProduct,
-    setSearch,
+    // setSearch,
   } = useProducts();
 
   const column = productsColum({
