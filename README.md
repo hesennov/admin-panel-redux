@@ -1,73 +1,83 @@
-# React + TypeScript + Vite
+# 🛡️ Admin Panel
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, full-stack **Admin Panel** built with React, Redux Toolkit, and TypeScript. Manage users and products with a clean UI and seamless API integration.
 
-Currently, two official plugins are available:
+🔗 **Live Demo:** [admin-panelpa01.netlify.app](https://admin-panelpa01.netlify.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 📸 Preview
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+<!-- Buraya ekran görüntüsü ekle: resmi GitHub'a sürükle bırak, linki buraya yapıştır -->
+![Admin Panel Preview](BURAYA_RESIM_LINKINI_YAPISTIR)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ✨<img width="1918" height="1037" alt="Screenshot 2026-03-31 184541" src="https://github.com/user-attachments/assets/0a32d22c-47ee-4c5c-ae72-e81476b3287f" />
+<img width="1919" height="900" alt="Screenshot 2026-03-31 184630" src="https://github.com/user-attachments/assets/4aac3824-7335-4713-909a-a66c59693b0a" />
+ Features
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- 🔐 JWT Authentication (Login / Register)
+- 👥 User Management (List, Edit, Delete)
+- 📦 Product Management (List, Edit, Delete)
+- 📄 Pagination
+- ⚡ Fast & responsive UI with Tailwind CSS
+- 🔄 Global state management with Redux Toolkit
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🚀 Tech Stack
+
+| Frontend | Backend |
+|----------|---------|
+| React 19 | Node.js + Express |
+| TypeScript | REST API |
+| Redux Toolkit | JWT Auth |
+| Vite | Render.com |
+| Tailwind CSS | |
+| React Router v6 | |
+
+---
+
+## 🛠️ Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Environment Variables
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Create a `.env` file in the root:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```env
+VITE_API_BASE_URL=https://your-backend-url.onrender.com
 ```
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+├── api/          # Axios client
+├── components/   # Reusable UI components
+├── constants/    # Navigation, messages
+├── hooks/        # Custom React hooks
+├── pages/        # Page components
+├── store/        # Redux slices
+├── types/        # TypeScript types
+└── services/     # API service functions
+```
+
+---
+
+## 📝 License
+
+MIT
